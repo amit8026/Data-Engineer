@@ -1,0 +1,18 @@
+{
+	"name": "LS_adb_healthsync",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-7405608896589606.6.azuredatabricks.net",
+			"accessToken": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "LS_keyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "adb-connection"
+			}
+		}
+	}
+}
