@@ -12,7 +12,8 @@
 					"type": "LinkedServiceReference"
 				},
 				"secretName": "adb-connection"
-			}
+			},
+			"existingClusterId": "1028-045753-ycm019y3"
 		}
 	}
 }
