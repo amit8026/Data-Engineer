@@ -120,6 +120,84 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "landing_to_bronze",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "source_to_landing ingestion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/lverma.j20@gmail.com/healthsync-adb/landing to bronze",
+					"baseParameters": {
+						"landing_timeStamp": {
+							"value": "@variables('start_time')",
+							"type": "Expression"
+						},
+						"source_system": {
+							"value": "@activity('Read Table details').output.firstRow.source_system",
+							"type": "Expression"
+						},
+						"table_name": {
+							"value": "@activity('Read Table details').output.firstRow.bronze_table_name",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_adb_healthsync",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "bronze_to_silver",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "landing_to_bronze",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/lverma.j20@gmail.com/healthsync-adb/bronze to silver",
+					"baseParameters": {
+						"landing_timestamp": {
+							"value": "@variables('start_time')",
+							"type": "Expression"
+						},
+						"table_name": {
+							"value": "@activity('Read Table details').output.firstRow.bronze_table_name",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_adb_healthsync",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
