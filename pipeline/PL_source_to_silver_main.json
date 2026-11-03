@@ -167,6 +167,9 @@
 				"type": "String"
 			}
 		},
+		"folder": {
+			"name": "Full Load"
+		},
 		"annotations": []
 	}
 }
