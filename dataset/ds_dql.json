@@ -1,0 +1,12 @@
+{
+	"name": "ds_dql",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_sql_metadata",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
